@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Fibonacci Sequence</title> 
+</head> 
+<body>
+   <h2>Kelsey Roberts - IT 2320 - Lab 2</h2>
+	<script>
+	"use strict"
+	var numFib = prompt("How many numbers in the sequence?"); 
+	numFib = parseFloat(numFib);
+	if (!(numFib >= 3)) {
+	   alert("The sequence must have 3 or more numbers.");
+	} else {
+	   var myFib = [];  // declare the array
+	   myFib[0] = 0;
+	   myFib[1] = 1;
+	   // fill the array
+	   for (let i = 2; i < numFib; i++) {
+		  myFib[i] = myFib[i-2] + myFib[i-1];
+	   }
+	   // write out the results
+	   for (let i = 0; i < myFib.length; i++) {
+		  document.write(`<p>${myFib[i]}</p>`);
+	   }	
+	   document.write("Ratio: " + myFib[numFib-1] / myFib[numFib-2]);
+	}
+	</script>
+</body> 
+</html>
