@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        img {
+            display: none;
+            position: relative;
+            width: 400px;
+        }
+
+        img.flip {
+            position: relative;
+            width: 400px;
+            transform: rotateY(180deg);
+        }
+    </style>
+
+</head>
+
+<body>
+    <button type="button" id="start">start</button>
+    <img src="images/walking-guy.gif" id="coolGuy">
+    <script>
+
+        $(document).ready(() => {
+
+            $("#start").click(evt => {
+
+                var width = "+=" + ($(document).width() - $("#coolGuy").width() - 8);
+                //for some reason the window kept expanding by 8px so I added the "-8"
+                $("#coolGuy").fadeIn(1000);
+                $("#coolGuy").animate({
+                    left: width
+                }, 3000, "linear", function () {
+                    $("#coolGuy").toggleClass("flip");
+                });
+                $("#coolGuy").animate({
+                    left: 0,
+                }, 3000, "linear"
+                );
+                $("#coolGuy").fadeOut(1000, function () {
+                    $("#coolGuy").toggleClass("flip")
+                });
+
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>
