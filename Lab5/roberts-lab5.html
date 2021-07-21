@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <style type="text/css">
+        ul {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Kelsey Roberts - IT 2320 - Lab 5</h2>
+    <p>
+        <center>
+            Timer (seconds): <input type="text" id="timerVal" value="3"><br /><br />
+            <img id="main_image" src="images/adams.jpg"><br /><br />
+            <h2 id="timerCount">3</h2>
+        </center>
+    </p>
+    <ul id="image_list">
+        <li><a href="images/adams.jpg" title="Adams"></a></li>
+        <li><a href="images/jackson.jpg" title="Jackson"></a></li>
+        <li><a href="images/jefferson.jpg" title="Jefferson"></a></li>
+        <li><a href="images/madison.jpg" title="Madison"></a></li>
+        <li><a href="images/washington.jpg" title="Washington"></a></li>
+    </ul>
+
+
+    <script>
+
+        const $ = selector => document.querySelector(selector);
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const links = $("#image_list").querySelectorAll("a");
+
+            const imageCache = [];
+            let image = null;
+
+            for (let link of links) {
+                image = new Image();
+                image.src = link.href;
+                image.alt = link.title;
+                imageCache[imageCache.length] = image;
+            }
+
+            let imageCounter = 0;
+
+            timer = setInterval(() => {
+                imageCounter = (imageCounter + 1) % imageCache.length;
+                image = imageCache[imageCounter];
+                $("#main_image").src = image.src;
+            }, $("#timerVal").value * 1000);
+            
+            countArray = [];
+            let count = $("#timerVal").value;
+            countArray[0] = parseInt(count);
+            count2 = countArray[0];
+
+            timer2 = setInterval(() => {
+                if (count2 > 1) {
+                    count2--;
+                } else {
+                    count2 = countArray[0];
+                }
+                $("#timerCount").textContent = count2;
+            }, 1000);
+
+            $("#timerVal").addEventListener("change", evt => {
+
+                let count3 = $("#timerVal").value;
+                countArray[0] = parseInt(count3);
+                count2 = countArray[0];
+
+                clearInterval(timer);
+
+                timer = setInterval(() => {
+                    imageCounter = (imageCounter + 1) % imageCache.length;
+                    image = imageCache[imageCounter];
+                    $("#main_image").src = image.src;
+                }, $("#timerVal").value * 1000);
+
+                let count = $("#timerVal").value;
+
+                clearInterval(timer2);
+
+                timer2 = setInterval(() => {
+                    if (count2 > 1) {
+                        count2--;
+                    } else {
+                        count2 = countArray[0];
+                    }
+                    $("#timerCount").textContent = count2;
+                }, 1000);
+
+                /*what i struggled with most with this lab was finding a way to prevent 
+                the timer display from changing after I changed the value in the text 
+                box but before I pressed enter. originally the timer display would change 
+                before the "change" event was triggered. I think this is because the line:
+                  let count = $("#timerVal").value;
+                was making a reference to the value instead of a deep copy.
+                I found a way around this by saving it into an array as an int. That's why
+                I use this code:
+                  let count = $("#timerVal").value;
+                  countArray[0] = parseInt(count);
+                  count2 = countArray[0];
+                */
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
