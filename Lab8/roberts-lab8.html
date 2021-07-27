@@ -33,7 +33,7 @@
 				}
 			});
 
-			$("#comment").keydown(() => {
+			$("#comment").keyup(() => {
 			//let the user know how many characters they have left in the comment textbox
 			let charactersRemaining = 250 - $("#comment").val().length;
 			$("#msgArea").html(charactersRemaining + " characters <br /> remaining");
