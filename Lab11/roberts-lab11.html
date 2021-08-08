@@ -1,0 +1,148 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+
+            $("#GCDButton").click(event => {
+                let num1 = parseInt($("#num1").val());
+                let num2 = parseInt($("#num2").val());
+                let a = Math.abs(num1);
+                let b = Math.abs(num2);
+                //the loop below I got to work but i found it on the internet
+                while (a !== b) {
+                    if (a > b) {
+                        [a, b] = [a - b, b];
+                    } else {
+                        [a, b] = [a, b - a];
+                    };
+                };
+                $("#GCDoutput").html(a || b);
+                //below are my own failed attempts at coding the Greatest Common Denominator
+                /*
+                 num1 = Math.abs(num1);
+                 num2 = Math.abs(num2);
+                 let biggernum = 0;
+                 let smallernum = 0;
+                 if (num1 > num2) {
+                     biggerNum = num1;
+                     smallerNum = num2;
+                 } else {
+                     biggerNum = num2;
+                     smallerNum = num1;
+                 }
+                 while(smallerNum != 0){
+                     smallerNum = biggerNum % smallerNum;
+                 }
+                 answer = smallerNum;
+                 $("#GCDoutput").html(answer);
+ */
+
+
+
+
+                /*
+                let answer = 0;
+                alert("gcd button pressed");
+                let num1 = parseInt($("#num1").val());
+                let num2 = parseInt($("#num2").val());
+                let biggernum = 0;
+                let smallernum = 0;
+                if (num1 > num2) {
+                    biggerNum = num1;
+                    smallerNum = num2;
+                } else {
+                    biggerNum = num2;
+                    smallerNum = num1;
+                }
+                //calculate gcd if neither number is 0
+                if ((biggerNum != 0 && smallerNum != 0)) {
+                    while (remainder != 0) {
+                        if (Number.isInteger(biggerNum % smallerNum)) {
+                            let remainder = biggerNum % smallerNum;
+                            biggerNum = smallerNum;
+                            smallerNum = remainder;
+                        }
+                    }
+                } else 
+                //calculate gcd if one or both numbers is 0
+                {
+                    if (smallerNum == 0){
+                        if(biggerNum < 0){
+                            answer = biggerNum * -1;
+                        }else{
+                            answer = biggerNum;
+                        }
+                    }else{
+                        if(smallerNum < 0){
+                            answer = smallerNum * -1;
+                        }else{
+                            answer = smallerNum;
+                        }
+                    }
+                }
+                */
+
+            });
+            //this is the primes part that works
+            $("#PrimesButton").click(event => {
+                let enteredNumber = parseInt($("#enteredNumber").val());
+                let outputString = "2 3 ";
+                //go through every odd number between 3 and the entered number looking for primes
+                for (i1 = 3; i1 < (enteredNumber); i1 = i1 + 2) {
+                    isPrime = true;
+                    let root = Math.ceil(Math.sqrt(i1));
+                    //check if the number is prime by dividing it by every odd number 
+                    //less than it and checking if the remainder is 0
+                    for (i = 3; i <= root; i = i + 2) {
+                        if (i1 % i == 0) {
+                            isPrime = false;
+                            break;
+                        }
+                    }
+                    if (isPrime) {
+                        outputString = outputString.concat(i1 + " ");
+                    }
+
+                }
+
+                $("#Primeoutput").html(outputString);
+
+            });
+
+
+
+
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <h3>Kelsey Roberts - IT 2320 - Lab 11</h3>
+    <div>
+        <h2>Greatest Common Denominator</h2>
+        <label for="num1">First number:</label>
+        <input type="text" id="num1" name="num1"><br><br>
+        <label for="num2">Second number:</label>
+        <input type="text" id="num2" name="num2"><br><br>
+        <button type="button" id="GCDButton">GCD GO!</button>
+        <div id="GCDoutput">****</div>
+    </div>
+    <div>
+        <h2>Primes</h2>
+        <h3>enter an int (greater than 2) to see all primes less than or equal to it</h3>
+        <input type="text" id="enteredNumber"><br><br>
+        <button type="button" id="PrimesButton">PRIMES GO!</button>
+        <div id="Primeoutput">****</div>
+
+    </div>
+
+
+
+</body>
+
+</html>
